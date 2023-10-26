@@ -7,7 +7,7 @@ public class Objects : MonoBehaviour
     public float speed = 5f;
     public int signX = 1;
     public int signY = 1;
-    private SpriteRenderer spriteRenderer;
+    protected SpriteRenderer spriteRenderer;
 
     protected void Start()
     {
@@ -21,10 +21,10 @@ public class Objects : MonoBehaviour
         Move();
     }
 
-    protected virtual void Move()
+    protected void Move()
     {
-        Vector3 newPos = new Vector3(transform.position.x + speed*signX * Time.deltaTime,
-            transform.position.y + speed*signY * Time.deltaTime);
+        Vector3 newPos = new Vector3(transform.position.x + speed * signX * Time.deltaTime,
+            transform.position.y + speed * signY * Time.deltaTime);
         transform.position = newPos;
     }
 
@@ -32,6 +32,7 @@ public class Objects : MonoBehaviour
     {
         
     }
+
     protected virtual void ChangeSign(int num)
     {
         if (num > 0)
@@ -43,7 +44,7 @@ public class Objects : MonoBehaviour
             signY *= -1;
         }
     }
-    
+
     protected virtual void OnCollisionEnter2D(Collision2D other)
     {
         Debug.Log("Enter");
@@ -51,10 +52,12 @@ public class Objects : MonoBehaviour
         {
             ChangeSign(1);
         }
+
         if (other.gameObject.tag.Equals("WallY"))
         {
             ChangeSign(-1);
         }
+
         Action();
     }
 }
